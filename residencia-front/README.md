@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🏠 Controle de Gastos Residencial
+Sistema Full Stack desenvolvido para o gerenciamento de finanças domésticas. O projeto permite o controle de integrantes da residência, categorização de despesas/receitas e o monitoramento de saldos individuais e gerais.
 
-## Getting Started
+🛠️ Tecnologias Utilizadas
+Back-end: C# e .NET 8 com Entity Framework Core.
 
-First, run the development server:
+Front-end: React (Next.js 16) com TypeScript e Tailwind CSS.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Banco de Dados: SQLite (Persistência em arquivo local).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📌 Funcionalidades e Regras de Negócio
+O sistema foi desenvolvido seguindo rigorosamente as especificações do teste técnico:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Gestão de Pessoas: Cadastro completo (CRUD) com validação de nome (max 200 caracteres).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Deleção em Cascata: Ao remover uma pessoa, todas as suas transações são apagadas automaticamente do banco de dados (implementado via OnDelete(DeleteBehavior.Cascade) no EF Core).
 
-## Learn More
+Gestão de Categorias: Organização por descrição e finalidade (despesa, receita ou ambas).
 
-To learn more about Next.js, take a look at the following resources:
+Lançamentos Inteligentes:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Trava de Idade: Menores de 18 anos são restritos apenas a lançamentos do tipo "Saída" (Despesa).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Filtro de Finalidade: O sistema impede o uso de categorias de receita em transações de despesa (e vice-versa).
 
-## Deploy on Vercel
+Relatórios Consolidados: Visão detalhada de ganhos, gastos e saldo líquido por integrante, além do total geral da residência.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🚀 Como Executar o Projeto
+1. Clonando o Repositório
+Abra o terminal e execute os comandos abaixo para baixar o projeto e entrar na pasta raiz:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Bash
+git clone https://github.com/monica308/controle-gastos-residencial.git
+cd controle-gastos-residencial
+2. Pré-requisitos
+.NET SDK 8
+
+Node.js
+
+Yarn
+
+3. Back-end (API)
+Navegue até a pasta da API: cd Residencia.Api
+
+Execute o projeto: dotnet run
+
+A API estará disponível em: https://localhost:7265 (conforme launchSettings.json).
+
+O banco de dados SQLite (residencia.db) será gerado automaticamente no primeiro run.
+
+4. Front-end (Web)
+Navegue até a pasta do front: cd residencia-front
+
+Instale as dependências: yarn
+
+Inicie o servidor de desenvolvimento: yarn dev
+
+Acesse: http://localhost:3000
+📂 Organização do Código
+Comentários: O código foi documentado para explicar a lógica de métodos complexos, especialmente as validações de regras de negócio no Front-end e as configurações de banco no Back-end.
+
+Persistência: Utilizado SQLite para garantir que os dados se mantenham após reiniciar o sistema, conforme exigido.
+
+CORS: Configurado no Program.cs para permitir a comunicação segura entre o Front-end e a WebApi.
