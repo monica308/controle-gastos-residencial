@@ -15,7 +15,6 @@ namespace Residencia.Api.Models
         public int Idade { get; set; }
 
         // Propriedade de navegação: Uma pessoa pode ter várias transações.
-        // Isso ajuda o Entity Framework a configurar o Cascade Delete.
         public virtual ICollection<Transacao> Transacoes { get; set; } = new List<Transacao>();
     }
 }
